@@ -17,8 +17,11 @@ export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Post()
-  async create(@Body() createTaskDto: CreateTaskDto) {
-    return await this.tasksService.create(createTaskDto);
+  async create(
+    @Body() createTaskDto: CreateTaskDto,
+    @Query('ipAddress') ipAddress: string,
+  ) {
+    return await this.tasksService.create(createTaskDto, ipAddress);
   }
 
   @Get()

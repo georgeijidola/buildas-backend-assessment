@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsOptional, IsIP } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateTaskDto {
   @IsNotEmpty()
@@ -20,12 +20,4 @@ export class CreateTaskDto {
     example: faker.lorem.paragraph(),
   })
   description: string;
-
-  @IsIP()
-  @ApiProperty({
-    type: String,
-    description: 'Task IP address',
-    example: faker.internet.ipv4(),
-  })
-  ipAddress: string;
 }

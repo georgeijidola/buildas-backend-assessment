@@ -23,10 +23,8 @@ export class TasksService {
     await writeFile(this.dataFilePath, JSON.stringify(data, null, 2));
   }
 
-  async create(createTaskDto: CreateTaskDto): Promise<Task> {
+  async create(createTaskDto: CreateTaskDto, ipAddress: string): Promise<Task> {
     const data = await this.readData();
-
-    const { ipAddress } = createTaskDto;
 
     const taskId = uuidv4();
 
