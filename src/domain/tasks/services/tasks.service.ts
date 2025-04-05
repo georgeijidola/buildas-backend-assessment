@@ -50,7 +50,9 @@ export class TasksService {
   async findAll(ipAddress: string): Promise<Task[]> {
     const data = await this.readData();
 
-    return data[ipAddress] ? data[ipAddress] : [];
+    return data[ipAddress]
+      ? data[ipAddress].filter((task) => task !== null)
+      : [];
   }
 
   async update(
@@ -70,6 +72,10 @@ export class TasksService {
     let taskIndex: number;
 
     const task = ipData.find((task, index) => {
+      if (task === null) {
+        return false;
+      }
+
       taskIndex = index;
 
       return task.id === id;
@@ -104,7 +110,9 @@ export class TasksService {
       );
     }
 
-    const taskIndex = ipData.findIndex((task) => task.id === id);
+    const taskIndex = ipData.findIndex(
+      (task) => task !== null && task.id === id,
+    );
 
     if (taskIndex < 0) {
       throw new NotFoundException(
